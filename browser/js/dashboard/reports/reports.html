@@ -1,0 +1,8 @@
+<h1 class = 'page-header'>Your Reports</h1>
+<div class = "row">This will be a graph maybe even a carousel</div>
+<div class = "row contentContainer">
+	<h3 class = "sub-header">{{section}}</h3>
+	<ul ng-show = "home">
+		<li ng-repeat = "data in user.data"><a ng-click = "makeGraph(data)">{{data}}</a></li>
+	</ul>
+</div>
