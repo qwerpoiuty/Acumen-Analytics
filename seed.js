@@ -22,36 +22,77 @@ var Promise = require('bluebird');
 var chalk = require('chalk');
 var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
+var Groups = Promise.promisifyAll(mongoose.model('Groups'));
+var Graphs = Promise.promisifyAll(mongoose.model('Graphs'));
 
-var seedUsers = function () {
 
-    var users = [
-        {
-            email: 'testing@fsa.com',
-            password: 'password'
-        },
-        {
-            email: 'obama@gmail.com',
-            password: 'potus'
-        }
-    ];
+var getCurrentUserData = function() {
+    return q.ninvoke(User, 'find', {});
+}
+var seedUsers = function() {
+
+    var users = [{
+        email: 'testing@fsa.com',
+        password: 'password',
+        groups: []
+    }, {
+        email: 'obama@gmail.com',
+        password: 'potus',
+        groups: []
+    }];
 
     return User.createAsync(users);
 
 };
+// var seedGroups = function() {
+//     var user = User.findOne({
+//         email: "testing@fsa.com"
+//     })
+//     var groups = {
+//         title: "testing1",
+//         admins: [user._id],
+//         data: []
+//     }
+//     return Groups.createAsync(groups)
 
-connectToDb.then(function () {
-    User.findAsync({}).then(function (users) {
+
+
+// }
+
+// var seedGraphs = function() {
+//     var graphs = [{
+//         title: "test1",
+//         type: "bar",
+//         group: ["testing1"],
+//         data: [1, 2, 3, 4, 5, 6, 7, 8, 10]
+
+//     }, {
+//         title: "test2",
+//         type: "bar",
+//         group: ["testing2"],
+//         data: [4, 2, 3, 1, 5, 6, 7, 8, 140]
+
+//     }]
+
+//     return Graphs.createAsync(graphs);
+// };
+
+connectToDb.then(function() {
+    User.findAsync({}).then(function(users) {
         if (users.length === 0) {
             return seedUsers();
         } else {
             console.log(chalk.magenta('Seems to already be user data, exiting!'));
             process.kill(0);
         }
-    }).then(function () {
+        // }).then(function() {
+        //     return seedGroups();
+        // }).then(function() {
+        //     return seedGraphs();
+    }).then(function() {
         console.log(chalk.green('Seed successful!'));
         process.kill(0);
-    }).catch(function (err) {
+    }).catch(function(err) {
         console.error(err);
         process.kill(1);
     });

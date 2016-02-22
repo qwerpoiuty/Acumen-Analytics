@@ -1,7 +1,7 @@
 'use strict';
 var crypto = require('crypto');
 var mongoose = require('mongoose');
-
+var deepPopulate = require('mongoose-deep-populate')
 var schema = new mongoose.Schema({
     email: {
         type: String
@@ -11,13 +11,12 @@ var schema = new mongoose.Schema({
     },
     salt: {
         type: String
-    }
-    // data: {
-    //     [{
-    //         type: mongoose.Schema.Types.ObjectId,
-    //         ref: 'Data'
-    //     }]
-    // }
+    },
+    groups: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Groups'
+    }]
+
 });
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
@@ -32,7 +31,11 @@ var encryptPassword = function(plainText, salt) {
     hash.update(salt);
     return hash.digest('hex');
 };
-
+schema.plugin(deepPopulate, {
+    populate: {
+        "groups.data": {}
+    }
+})
 schema.pre('save', function(next) {
 
     if (this.isModified('password')) {

@@ -1,8 +1,14 @@
 <h1 class = 'page-header'>Your Reports</h1>
-<div class = "row">This will be a graph maybe even a carousel</div>
-<div class = "row contentContainer">
+<div class = "row">
+	<graph></graph>
+</div>
+<div class = "row menuContainer" ng-show = "!selected">
 	<h3 class = "sub-header">{{section}}</h3>
-	<ul ng-show = "home">
-		<li ng-repeat = "data in user.data"><a ng-click = "makeGraph(data)">{{data}}</a></li>
+	<ul ng-repeat = "group in user.group">
+		<li ng-repeat = "data in group"><a ng-click = "makeGraph(data.data)">{{data.title}}</a></li>
 	</ul>
+</div>
+<div class = "row dataContainer" ng-show = "selected">
+	<button class = "btn btn-default" ng-click = "back()">Back</button>
+	<
 </div>

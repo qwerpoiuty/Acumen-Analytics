@@ -15,6 +15,6 @@ app.config(function($stateProvider) {
 
 app.controller('dashCtrl', function($scope, AuthService, $state, user) {
     $scope.user = user
-    console.log($scope.user, 'hello')
     $state.transitionTo('overview')
+
 });
