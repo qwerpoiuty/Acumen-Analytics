@@ -1,7 +1,8 @@
 app.factory('dataFactory', function($http) {
     var data = {}
     data.getData = function(userID) {
-        return $http.get('/api/user/getData/' + userId).then(function(response) {
+        console.log(userID)
+        return $http.get('/api/users/getData/' + userID).then(function(response) {
             return response.data
         })
     }

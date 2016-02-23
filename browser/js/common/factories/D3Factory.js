@@ -29,7 +29,7 @@ app.factory('d3factory', function() {
             .orient('left')
 
 
-        var factor = 400 / Math.max.apply(Math, array)
+        var factor = 400 / Math.max.apply(Math, json)
 
         svg = d3.select(el)
             .append("div")
@@ -55,7 +55,7 @@ app.factory('d3factory', function() {
         // var intervals = d3.keys(data[])
 
         svg.selectAll('rect')
-            .data(array)
+            .data(json)
             .enter()
             .append("rect")
             .attr("class", "bar")
@@ -63,12 +63,12 @@ app.factory('d3factory', function() {
                 return i
             })
             .attr("x", function(d, i) {
-                return i * (w / array.length);
+                return i * (w / json.length);
             })
             .attr("y", function(d) {
                 return h - (d * factor)
             })
-            .attr("width", w / array.length)
+            .attr("width", w / json.length)
             .attr("height", function(d) {
                 return d * factor;
             })

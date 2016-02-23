@@ -1,7 +1,7 @@
 'use strict';
 var crypto = require('crypto');
 var mongoose = require('mongoose');
-var deepPopulate = require('mongoose-deep-populate')
+var deepPopulate = require('mongoose-deep-populate')(mongoose)
 var schema = new mongoose.Schema({
     email: {
         type: String
@@ -33,9 +33,11 @@ var encryptPassword = function(plainText, salt) {
 };
 schema.plugin(deepPopulate, {
     populate: {
-        "groups.data": {}
+        "groups.data": [{}]
     }
 })
+
+
 schema.pre('save', function(next) {
 
     if (this.isModified('password')) {

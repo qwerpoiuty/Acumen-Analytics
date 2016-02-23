@@ -27,7 +27,7 @@ router.get('/', ensureAuthenticated, function(req, res) {
     console.log('failed to find data', err);
 })
 
-router.get('/title/:title', function(req, res) {
+router.get('/title/:title', ensureAuthenticated, function(req, res) {
     console.log('hello', req.params.title)
     Graphs.findOne({
         title: req.params.title
@@ -39,8 +39,7 @@ router.get('/title/:title', function(req, res) {
 
 })
 
-router.post('/:id', function(req, res, next) {
-    console.log('hit the route')
+router.post('/:id', ensureAuthenticated, function(req, res, next) {
     var graph = new Graphs(req.body);
     graph.group = req.params.id
     graph.save(function(err) {

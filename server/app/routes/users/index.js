@@ -13,8 +13,14 @@ var ensureAuthenticated = function(req, res, next) {
     }
 };
 
+router.get('/getData/:id', ensureAuthenticated, function(req, res) {
+    User.findById(req.params.id).populate('groups').deepPopulate('groups.data').exec()
+        .then(function(user) {
+            res.json(user)
+        })
+})
+
 router.put('/addGroup/:id', ensureAuthenticated, function(req, res) {
-    console.log('hello', req.body.params.ids)
     User.findOne(req.params.id).then(function(user) {
         user.groups.push(req.body.params.ids)
         user.save(function(err) {
