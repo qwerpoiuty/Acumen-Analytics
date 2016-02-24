@@ -32,7 +32,7 @@ var getCurrentUserData = function() {
 var seedUsers = function() {
 
     var users = [{
-        email: 'testing@fsa.com',
+        email: 'stanle@123.com',
         password: 'password',
         groups: []
     }, {

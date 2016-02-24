@@ -34,9 +34,9 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
         res.status(200).send(group);
     })
 })
-router.put('/addGraph/:title', ensureAuthenticated, function(req, res) {
-    console.log('hello', req.params.title)
-    Groups.findOne(req.params.title).then(function(group) {
+router.put('/addGraph/:groupID', ensureAuthenticated, function(req, res) {
+    console.log('hello', req.params.groupID)
+    Groups.findById(req.params.groupID).then(function(group) {
         group.data.push(req.body.params.graph)
         group.save(function(err) {
             if (err) return next(err);
@@ -46,7 +46,7 @@ router.put('/addGraph/:title', ensureAuthenticated, function(req, res) {
 })
 
 router.put('/removeGroup/:id', ensureAuthenticated, function(req, res) {
-    Groups.findOne(req.params.id).then(function(group) {
+    Groups.findById(req.params.id).then(function(group) {
         for (var i = 0; i < group.data.length; i++) {
             if (group.data[i] === req.body.params.ids) group.data.splice(i + 1, 1)
         }

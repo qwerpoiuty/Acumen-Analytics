@@ -24,9 +24,9 @@ app.factory('dataFactory', function($http) {
         })
     }
 
-    data.removeGroup = function(email, groupTitle) {
+    data.removeGroup = function(email, groupID) {
         var query = {}
-        query.ids = groupTitle
+        query.ids = groupID
         return http.put('/api/users/removeGroup/' + email, {
             params: query
         }).then(function(response) {
@@ -40,23 +40,24 @@ app.factory('dataFactory', function($http) {
         })
     }
 
-    data.addGraph = function(groupTitle, graph) {
+    data.addGraph = function(groupID, graph) {
         var query = {}
         query.graph = graph
-        return $http.put('/api/groups/addGraph/' + groupTitle, {
+        return $http.put('/api/groups/addGraph/' + groupID, {
             params: query
         })
     }
 
-    data.makeGraph = function(groupTitle, graph) {
+    data.makeGraph = function(user, groupID, graph) {
         var isAdmin = false
-        for (var i = 0; i < user.groups; i++) {
-            if (user.groups[i].admins.indexOf(user._id) !== -1) isadmin = true
+        for (var i = 0; i < user.groups.length; i++) {
+            console.log('hello', user.groups[i].admins)
+            if (user.groups[i].admins.indexOf(user._id) !== -1) isAdmin = true
         }
         if (isAdmin) {
-            return $http.post('api/graphs/' + groupTitle, graph)
+            return $http.post('api/graphs/' + groupID, graph)
                 .then(function(response) {
-                    return data.addGraph(groupTitle, response.data._id)
+                    return data.addGraph(groupID, response.data._id)
                         .then(function(res) {
                             return res.data
                         })

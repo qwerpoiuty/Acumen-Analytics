@@ -2,11 +2,12 @@ app.factory('d3factory', function() {
     var svg;
     d3.makeBarGraph = function(el, json, w, h) {
         //define the margins for your graph
+        var data = JSON.parse(json);
         var margin = {
                 top: 20,
                 right: 20,
-                bottom: 30,
-                left: 40
+                bottom: 50,
+                left: 60
             },
             width = w - margin.left - margin.right,
             height = h - margin.top - margin.bottom;
@@ -22,14 +23,19 @@ app.factory('d3factory', function() {
 
         var xAxis = d3.svg.axis()
             .scale(x0)
-            .orient('bottom')
+            .orient("bottom");
 
         var yAxis = d3.svg.axis()
             .scale(y)
-            .orient('left')
+            .orient("left")
 
-
-        var factor = 400 / Math.max.apply(Math, json)
+        console.log(data)
+        x0.domain(data.map(function(d) {
+            return d.name;
+        }));
+        y.domain([0, d3.max(data, function(d) {
+            return d.value;
+        })]);
 
         svg = d3.select(el)
             .append("div")
@@ -49,13 +55,22 @@ app.factory('d3factory', function() {
             .offset([-5, 0]).html(function(d) {
                 return "<span><strong>" + d.value + "</strong></span>"
             });
+
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis);
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis);
         svg.call(tip)
 
-        var data = json;
+
         // var intervals = d3.keys(data[])
 
         svg.selectAll('rect')
-            .data(json)
+            .data(data)
             .enter()
             .append("rect")
             .attr("class", "bar")
@@ -63,15 +78,15 @@ app.factory('d3factory', function() {
                 return i
             })
             .attr("x", function(d, i) {
-                return i * (w / json.length);
+                return i * (width / data.length);
             })
             .attr("y", function(d) {
-                return h - (d * factor)
+                return y(d.value);
             })
-            .attr("width", w / json.length)
             .attr("height", function(d) {
-                return d * factor;
+                return height - y(d.value);
             })
+            .attr("width", width / data.length - 1)
             .attr("fill", function(d) {
 
                 return "rgb(0,0,0)";

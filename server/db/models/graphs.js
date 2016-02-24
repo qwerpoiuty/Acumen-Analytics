@@ -8,7 +8,8 @@ var schema = new mongoose.Schema({
         type: String
     },
     group: {
-        type: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Groups'
     },
     data: {
         type: String,

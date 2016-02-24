@@ -4,11 +4,13 @@
 </div>
 <div class = "row menuContainer" ng-show = "!selected">
 	<h3 class = "sub-header">{{section}}</h3>
-	<ul ng-repeat = "group in user.group">
-		<li ng-repeat = "data in group"><a ng-click = "makeGraph(data.data)">{{data.title}}</a></li>
+	<ul ng-repeat = "group in user.groups">
+		<li>{{group.title}}</li>
+		<li ng-repeat = "graph in group.data track by $index"><a ng-click = "makeGraph(graph.data)">{{graph.title}}</a></li>
 	</ul>
+	<button class = "btn btn-default" ng-click = "addGraph()">Hello</button>
 </div>
 <div class = "row dataContainer" ng-show = "selected">
 	<button class = "btn btn-default" ng-click = "back()">Back</button>
-	<
+	
 </div>

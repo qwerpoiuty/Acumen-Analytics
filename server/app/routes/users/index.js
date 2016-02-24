@@ -21,7 +21,8 @@ router.get('/getData/:id', ensureAuthenticated, function(req, res) {
 })
 
 router.put('/addGroup/:id', ensureAuthenticated, function(req, res) {
-    User.findOne(req.params.id).then(function(user) {
+    User.findById(req.params.id).then(function(user) {
+        console.log(user)
         user.groups.push(req.body.params.ids)
         user.save(function(err) {
             if (err) return next(err);
