@@ -1,5 +1,5 @@
 module.exports = {
-    "DATABASE_URI": "mongodb://database:database@ds015398.mongolab.com:15398/alanalanalan",
+    "DATABASE_URI": "mongodb://localhost:27017/",
     "SESSION_SECRET": "Optimus Prime is my real dad",
     "TWITTER": {
         "consumerKey": "INSERT_TWITTER_CONSUMER_KEY_HERE",
@@ -17,3 +17,5 @@ module.exports = {
         "callbackURL": "INSERT_GOOGLE_CALLBACK_HERE"
     }
 };
+
+//"mongodb://database:database@ds015398.mongolab.com:15398/alanalanalan",
