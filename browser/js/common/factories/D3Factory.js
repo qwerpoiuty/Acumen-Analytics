@@ -29,7 +29,6 @@ app.factory('d3factory', function() {
             .scale(y)
             .orient("left")
 
-        console.log(data)
         x0.domain(data.map(function(d) {
             return d.name;
         }));
