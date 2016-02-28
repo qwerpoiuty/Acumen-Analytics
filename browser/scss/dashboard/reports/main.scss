@@ -1,0 +1,76 @@
+.highlighted{
+	background-color:rgba(194,194,228, 0.8) !important;
+}
+
+.bar{
+	fill:steelblue;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+.title{
+	color:red;
+}
+
+.d3-tip {
+  line-height: 1;
+  font-size:8;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 1px;
+}
+
+.svg-container{
+	width:50%;
+	margin:0 auto;
+}
+
+.graphTitle{
+	margin:0;
+	text-align:center;
+	text-decoration:underline;
+}
+
+.graphLink{
+	list-style:none;
+	font-size:1.5em;
+	margin-left:5%;
+}
+
+.subheader{
+
+}
+text {
+    font-family: sans-serif;
+    font-size: 12px;
+    fill: black;
+}
+graph{
+	position:relative;
+}
+.tooltip {
+  background: #eee;
+  box-shadow: 0 0 5px #999999;
+  color: #333;
+  display: none;
+  font-size: 12px;
+  left: 130px;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  top: 95px;
+  width: 80px;
+  z-index: 10;
+}
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+.focus circle {
+  fill: none;
+  stroke: steelblue;
+}
