@@ -5,6 +5,12 @@ app.config(function($stateProvider) {
         parent: 'dashboard'
     })
 })
-app.controller('overviewCtrl', function($scope, AuthService, $stateParams) {
-
+app.controller('overviewCtrl', function($scope, AuthService, $stateParams, dataFactory) {
+    $scope.getData = function(userID) {
+        dataFactory.getData(userID).then(function(user) {
+            console.log(user)
+            $scope.user = user
+        })
+    }
+    $scope.getData($scope.user._id);
 })

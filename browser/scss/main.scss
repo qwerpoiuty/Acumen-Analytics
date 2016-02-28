@@ -24,12 +24,15 @@ body {
   shape-rendering: crispEdges;
 }
 #main {
-  padding-top: 70px;
+  padding-top: 50px;
   width: 100%;
   margin: 0 auto;
 }
-
+.row{
+  margin:0;
+}
 @import 'directives/main';
 @import 'home/main';
 @import 'landing/main';
 @import 'login/main';
+@import 'dashboard/main';

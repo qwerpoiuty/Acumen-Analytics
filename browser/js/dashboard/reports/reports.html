@@ -1,16 +1,38 @@
-<h1 class = 'page-header'>Your Reports</h1>
+<div class= "titleContainer">
+	<h1 class = 'page-header' ng-show = "!selected">Your Reports</h1>
+	<h1 class = 'page-header' ng-show = "selected">Report for {{graph.title}}</h1>
+</div>
 <div class = "row">
+	<div class = "infoContainer">
+		<button ng-show = "selected" class = "btn btn-default" ng-click = "back()">Back</button>
+	</div>
 	<graph></graph>
 </div>
 <div class = "row menuContainer" ng-show = "!selected">
-	<h3 class = "sub-header">{{section}}</h3>
+	<h2 class = "sub-header">Your Groups</h2>
 	<ul ng-repeat = "group in user.groups">
-		<li>{{group.title}}</li>
-		<li ng-repeat = "graph in group.data track by $index"><a ng-click = "makeGraph(graph.data)">{{graph.title}}</a></li>
+		<h3 class = "groupTitle">{{group.title}}</h3>
+		<li class = "graphLink"><a ng-click = "makeGraph('pie', dataset)">Pie Chart</a></li>
+		<li class = "graphLink"><a ng-click = "makeGraph('bar',bar)">Bar Chart</a></li>
+		<li class = "graphLink"><a ng-click = "makeGraph('line',data)">Line Graph</a></li>
 	</ul>
-	<button class = "btn btn-default" ng-click = "addGraph()">Hello</button>
 </div>
 <div class = "row dataContainer" ng-show = "selected">
-	<button class = "btn btn-default" ng-click = "back()">Back</button>
-	
+	<h3 class = "title">Data Table</h3>
+	<div class = "table-responsive">
+		<table class = "table table-striped">
+		<thread>
+			<tr>
+			<th ng-repeat = "key in header">{{key}}</th>
+			</tr>
+		</thread>
+		<tbody>
+			<tr id = "{{'line' +line.name}}" ng-repeat = "line in data">
+				<td>{{line.name}}</td>
+				<td>{{line.value}}</td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
 </div>
+
