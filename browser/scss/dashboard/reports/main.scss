@@ -1,3 +1,33 @@
+.page-header{
+	margin: 20px 0 10px
+}
+.back{
+  margin-top:20px;
+}
+.table > tbody > tr > th{
+	text-align: center;
+	font-size: 1.2em;
+	font-weight:bold;
+}
+
+#tableContainer{
+	overflow:auto;
+	height:65vh;
+}
+.dataTable > tbody > tr > td{
+	border: 1px solid black;
+	text-align: center;
+}
+.title{
+  color:red;
+  text-align: center;
+}
+
+.tableHolder{
+  padding:0;
+}
+//d3 CSS
+
 .highlighted{
 	background-color:rgba(194,194,228, 0.8) !important;
 }
@@ -10,9 +40,7 @@
   fill: brown;
 }
 
-.title{
-	color:red;
-}
+
 
 .d3-tip {
   line-height: 1;
@@ -24,7 +52,7 @@
 }
 
 .svg-container{
-	width:50%;
+	width:100%;
 	margin:0 auto;
 }
 
@@ -48,10 +76,13 @@ text {
     font-size: 12px;
     fill: black;
 }
-graph{
-	position:relative;
+.key{
+	color:black;
 }
-.tooltip {
+.val{
+	color:black;
+}
+.tip {
   background: #eee;
   box-shadow: 0 0 5px #999999;
   color: #333;
@@ -73,4 +104,8 @@ graph{
 .focus circle {
   fill: none;
   stroke: steelblue;
+}
+
+.focus text{
+	font-weight: bold;
 }

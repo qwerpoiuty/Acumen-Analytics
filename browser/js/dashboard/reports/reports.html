@@ -1,38 +1,61 @@
-<div class= "titleContainer">
+<div class= "titleContainer" ng-show = "!selected">
 	<h1 class = 'page-header' ng-show = "!selected">Your Reports</h1>
-	<h1 class = 'page-header' ng-show = "selected">Report for {{graph.title}}</h1>
+	<div class = "first row">
+		<div class = "reportContainer col-md-6">
+			<h3 class = "description">What contributes to your revenue</h3>
+			<img ng-click = "show('Revenue')" class = "reportIcon" src = "http://baconmockup.com/300/200"/>
+		</div>
+		<div class = "reportContainer col-md-6">
+			<h3 class = "description">What makes up your expenses</h3>
+			<img ng-click = "show('Expenses')" class = "reportIcon" src = "http://baconmockup.com/300/200"/>
+		</div>
+	</div>
+	<div class = "second row">
+		<div class = "reportContainer col-md-6">
+			<h3 class = "description">Quarterly Performance</h3>
+			<img ng-click = "show('Quarter')" class = "reportIcon" src = "http://baconmockup.com/300/200"/>
+		</div>
+		<div class = "reportContainer col-md-6">
+			<h3 class = "description">Social Media</h3>
+			<img ng-click = "show('Social Media')" class = "reportIcon" src = "http://baconmockup.com/300/200"/>
+		</div>
+	</div>
+
 </div>
 <div class = "row">
-	<div class = "infoContainer">
-		<button ng-show = "selected" class = "btn btn-default" ng-click = "back()">Back</button>
+	<div  ng-show = "selected" class = "col-md-6 infoContainer">
+		<button class = "btn btn-danger back" ng-click = "back()">Back</button>
+		<h3 class= "sectionTitle">A breakdown of your monthly {{title}}</h3>
+		<form>
+			<label for="monthSelect">Select a date: </label>
+	    	<select name="monthSelect" id= "month" ng-options= "month.title for month in group.data track by month.title" ng-model= "graph" ng-change = "makeGraph(graph)">
+	    	</select>
+	    </form>
+		<div id = "graph"></div>
 	</div>
-	<graph></graph>
-</div>
-<div class = "row menuContainer" ng-show = "!selected">
-	<h2 class = "sub-header">Your Groups</h2>
-	<ul ng-repeat = "group in user.groups">
-		<h3 class = "groupTitle">{{group.title}}</h3>
-		<li class = "graphLink"><a ng-click = "makeGraph('pie', dataset)">Pie Chart</a></li>
-		<li class = "graphLink"><a ng-click = "makeGraph('bar',bar)">Bar Chart</a></li>
-		<li class = "graphLink"><a ng-click = "makeGraph('line',data)">Line Graph</a></li>
-	</ul>
-</div>
-<div class = "row dataContainer" ng-show = "selected">
+	<div class = "col-md-6 dataContainer" ng-show = "selected">
 	<h3 class = "title">Data Table</h3>
-	<div class = "table-responsive">
-		<table class = "table table-striped">
-		<thread>
-			<tr>
-			<th ng-repeat = "key in header">{{key}}</th>
-			</tr>
-		</thread>
-		<tbody>
-			<tr id = "{{'line' +line.name}}" ng-repeat = "line in data">
-				<td>{{line.name}}</td>
-				<td>{{line.value}}</td>
-			</tr>
-		</tbody>
-		</table>
+		<div class = "table-responsive">
+			<table class = "table table-striped">
+			<thread>
+				<tr>
+				<th ng-repeat = "key in header">{{key}}</th>
+				</tr>
+			</thread>
+			<tr class = "tableHolder"><td  colspan= "{{header.length}}">
+				<div id = "tableContainer">	
+					<table class = "dataTable table table-striped">
+						<tbody>
+							<tr id = "{{'line' +line[key]}}" ng-repeat = "line in data track by $index">
+								<td ng-repeat = "data in line track by $index">{{data}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</td></tr>
+			</table>
+		</div>
 	</div>
 </div>
+
 

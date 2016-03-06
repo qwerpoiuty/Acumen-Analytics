@@ -6,11 +6,6 @@ app.config(function($stateProvider) {
     })
 })
 app.controller('overviewCtrl', function($scope, AuthService, $stateParams, dataFactory) {
-    $scope.getData = function(userID) {
-        dataFactory.getData(userID).then(function(user) {
-            console.log(user)
-            $scope.user = user
-        })
-    }
-    $scope.getData($scope.user._id);
+
+
 })

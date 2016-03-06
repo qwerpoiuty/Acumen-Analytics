@@ -8,8 +8,10 @@ app.factory('dataFactory', function($http) {
     }
 
     data.makeGroup = function(userID, groupTitle) {
-
-        return $http.post('/api/groups/' + userID, groupTitle).then(function(response) {
+        var group = {
+            title: groupTitle
+        }
+        return $http.post('/api/groups/' + userID, group).then(function(response) {
             return data.addGroup(userID, response.data._id).then(function(res) {
                 return res.data
             })
@@ -40,27 +42,47 @@ app.factory('dataFactory', function($http) {
         })
     }
 
-    data.addGraph = function(groupID, graph) {
+    data.addGraph = function(graph) {
         var query = {}
         query.graph = graph
-        return $http.put('/api/groups/addGraph/' + groupID, {
+        return $http.put('/api/groups/addGraph/' + graph.group, {
             params: query
         })
     }
 
-    data.makeGraph = function(user, groupID, graph) {
+    data.makeGraph = function(user, graph) {
         var isAdmin = false
+        var groupID = ""
         for (var i = 0; i < user.groups.length; i++) {
-            console.log('hello', user.groups[i].admins)
-            if (user.groups[i].admins.indexOf(user._id) !== -1) isAdmin = true
+            if (user.groups[i].admins.indexOf(user._id) !== -1 && user.groups[i]._id === graph.group) {
+                isAdmin = true
+                groupID = user.groups[i]._id
+            }
         }
         if (isAdmin) {
             return $http.post('api/graphs/' + groupID, graph)
                 .then(function(response) {
-                    return data.addGraph(groupID, response.data._id)
+                    return data.addGraph(response.data)
                         .then(function(res) {
                             return res.data
                         })
+                })
+        } else {
+            alert('You do not have that level of power')
+        }
+    }
+
+    data.addData = function(graph, data) {
+        for (var i = 0; i < user.groups.length; i++) {
+            if (user.groups[i].admins.indexOf(user._id) !== -1 && user.groups[i]._id === graph.group) {
+                isAdmin = true
+                groupID = user.groups[i]._id
+            }
+        }
+        if (isAdmin) {
+            return $http.put('api/graphs/' + graph._id, graph)
+                .then(function(response) {
+                    return response.data;
                 })
         } else {
             alert('You do not have that level of power')

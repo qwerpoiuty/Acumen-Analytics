@@ -1,0 +1,21 @@
+<div class = "creationContainer">
+	<h1 class = "page-header">Create a new report</h1>
+	<div class = "form Container">
+			<button ng-show = "!chosen" class = "btn btn-success" ng-click = "make('Group')">Make a Group</button>
+			<button ng-show = "!chosen" class = "btn btn-danger" ng-click = "make('Graph')">Make a Graph</button>
+		 <form ng-show = "chosen" novalidate class="css-form">
+		 	<h3>{{type}} Details</h3>
+	    	Make a title: <input type="text" ng-model="product.title" required /><br />
+	    	<div class = "flexGraphContainer" ng-show = "type == 'Graph'">
+		    	<label for="repeatSelect">Select: </label>
+		    	<select name="repeatSelect" id="repeatSelect" ng-model="product.group">
+		        	<option ng-repeat="group in user.groups" value="{{group._id}}">{{group.title}}</option>
+		    	</select>
+	    		<input type = "text" placeholder = "enter the type of graph" ng-model = "product.type" required/>
+	    		<textarea rows = "4"cols = "50"ng-model="product.data"placeholder="Enter the Data for this graph"/>
+	    	</div>
+	    	<button class="btn btn-primary" type="button" ng-click="create()">Submit</button>
+	  		<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+	  	</form>
+	 </div>
+</div>

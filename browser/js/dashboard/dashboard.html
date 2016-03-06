@@ -4,7 +4,7 @@
           <ul class="nav nav-sidebar">
             <li><a ui-sref="overview">Overview</a></li>
             <li><a ui-sref="reports">Reports</a></li>
-            <li><a href="#">Create report</a></li>
+            <li><a ui-sref = "creation">Create report</a></li>
             <li><a href="#">Export</a></li>
           </ul>
           <ul class="nav nav-sidebar">
@@ -21,7 +21,7 @@
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        	<div ui-view></div>
+        	<div class = "viewContainer" ui-view></div>
         </div>
       </div>
 </div>
